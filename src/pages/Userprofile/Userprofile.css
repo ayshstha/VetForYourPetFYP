@@ -1,0 +1,438 @@
+.profile-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+  
+}
+
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #2c3e50, #3498db);
+    padding: 20px;
+    padding-top: 30px;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    height: calc(100vh );
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.sidebar-btn {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(10px);
+}
+
+.sidebar-btn.active {
+    background: #ffffff;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.content {
+    margin-left: 290px; /* Adjust for sidebar width */
+    padding: 40px;
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    overflow-y: auto; /* Allow content to scroll */
+
+}
+
+.profile-info {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%; /* Ensure it takes full width */
+}
+
+.profile-photo-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #3498db;
+    object-fit: cover;
+}
+
+.profile-details {
+    display: grid;
+    gap: 20px;
+}
+
+.detail-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #3498db;
+}
+
+.detail-item label {
+    display: block;
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.detail-item p {
+    margin: 0;
+    font-size: 1.1em;
+    color: #2c3e50;
+}
+
+.section-container {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensure it takes full width */
+}
+
+.section-container h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2em;
+    color: #2c3e50;
+}
+
+.error {
+    color: #e74c3c;
+}
+.password-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.adoption-reason-cell {
+    max-width: 300px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.edit-profile-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-preview {
+    margin-top: 10px;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+}
+
+.submit-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.success-message {
+    color: green;
+    margin-bottom: 15px;
+}
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+.dog-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-requested {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-unknown {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 120px;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        padding-top: 25px; /* Adjust for smaller navbar */
+    }
+}
+/* Add to your CSS */
+.status-cancelled {
+    background-color: #dc3545;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #bb2d3b;
+}
+
+.cancel-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+.time-slots-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time-slot {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.time-slot:hover:not(.booked) {
+    background-color: #f0f0f0;
+}
+
+.time-slot.selected {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+.time-slot.booked {
+    background-color: #ffebee;
+    color: #757575;
+    cursor: not-allowed;
+}
+
+.booked-label {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 0.8em;
+    color: #d32f2f;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.cancellation-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cancellation-warning {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #fff3cd;
+    border-radius: 8px;
+}
+
+.warning-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.refund-info {
+    margin: 1.5rem 0;
+}
+
+.info-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.info-section h4 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.confirm-cancel-btn {
+    background: #dc3545;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.confirm-cancel-btn:hover {
+    background: #bb2d3b;
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    background: #6c757d;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-modal:hover {
+    color: #333;
+}

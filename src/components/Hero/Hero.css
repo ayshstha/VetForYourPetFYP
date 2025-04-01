@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  /* Choose a clean, modern font */
+}
+
+.hero {
+  height: 500px;
+  background-image: url(/Hero2.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 60px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  /* Ensure child elements don't spill out */
+  animation: heroFadeIn 1.5s ease-in-out;
+  /* Add fade-in animation */
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  /* Darken the background */
+  animation: gradientFade 3s ease-in-out infinite;
+  /* Add gradient animation */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 1rem;
+  margin-top: 19rem;
+  transform: translateY(-20px);
+  /* Initial position for animation */
+  animation: slideUp 1s ease-in-out forwards;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ffda79;
+  /* Add a vibrant color */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease, color 0.3s ease;
+  /* Add hover transitions */
+}
+
+.hero h1:hover {
+  transform: scale(1.1);
+  /* Slightly enlarge on hover */
+  color: #ffd700;
+  /* Brighter color */
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  /* Smooth hover effect */
+}
+
+.hero p:hover {
+  transform: translateY(-5px);
+  /* Slight lift on hover */
+  opacity: 0.9;
+  /* Subtle fade */
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gradientFade {
+  0% {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  50% {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  100% {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hero-content:hover {
+  animation: none;
+  /* Prevent re-triggering animation */
+}

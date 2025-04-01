@@ -1,0 +1,64 @@
+.Donation {
+    height: 300px; /* Set the desired height */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('/donationdog.jpg'); /* Ensure the image is in the public folder */
+    background-size: cover; /* Ensure the full image scales proportionally */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: white;
+    position: relative;
+}
+
+.Donation-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: absolute; 
+    right: 110px; 
+    bottom: 50px; 
+    text-align: left;
+}
+
+.Donation h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.Donation p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.donate-btn {
+    background-color: #00b894;
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.donate-btn:hover {
+    background-color: #00a383;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .Donation {
+        padding: 4rem 1rem;
+    }
+
+    .Donation h2 {
+        font-size: 2rem;
+    }
+
+    .Donation p {
+        font-size: 1.1rem;
+    }
+}

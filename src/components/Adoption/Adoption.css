@@ -1,0 +1,56 @@
+.adoption-process {
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  .process-title {
+    margin-bottom: 3rem;
+  }
+
+  
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .step {
+    padding: 2rem;
+    background: #f5f6fa;
+    border-radius: 10px;
+    transition: transform 0.3s;
+  }
+  
+  .step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(20, 5, 5, 0.2);
+  }
+  
+  .step img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+  }
+  
+  .apply-btn {
+    margin-top: 3rem;
+    padding: 1rem 2rem;
+    background-color: #00b894;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease; /* Smooth transition */
+  } 
+  .apply-btn:hover {
+    background-color: #01976f;   /* Darker green on hover */
+    transform: scale(1.1);        /* Slight scaling effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  }
+  .apply-btn:active {
+    transform: scale(1);          /* Reset scaling */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Subtle shadow */
+  }

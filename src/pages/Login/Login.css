@@ -1,0 +1,223 @@
+/* Ensure full-page coverage */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Add a fade-in animation for the page */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Login Container */
+.login-container {
+    min-height: 100vh;
+    /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Background Blur Effect */
+.login-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/logindog.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px);
+    z-index: 0;
+}
+
+/* Main Content Styling */
+.login-content {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 1100px;
+    min-height: 650px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Left Side Image */
+.login-image-section {
+    flex: 1;
+    background-image: url('/logindog.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Right Side Form */
+.login-form-section {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.97);
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.login-form-section h2 {
+    font-size: 2.2rem;
+    color: #2d3436;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 1.6rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #2d3436;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.9rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Validation: Highlight input on focus */
+.form-group input:focus {
+    outline: none;
+    border-color: #00b894;
+    box-shadow: 0 0 8px rgba(0, 184, 148, 0.5);
+}
+
+/* Validation: Error State */
+.form-group input:invalid {
+    border-color: #d63031;
+}
+
+.form-group input:invalid:focus {
+    box-shadow: 0 0 8px rgba(214, 48, 49, 0.5);
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #00b894;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
+
+/* Button Hover Effect */
+.login-btn:hover {
+    background: #067d65;
+}
+
+/* Links */
+.login-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    gap: 1rem;
+    /* Added gap between the links */
+}
+
+.login-links a {
+    color: #636e72;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-links a:hover {
+    color: #00b894;
+}
+
+/* Password Wrapper */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    flex: 1;
+    padding-right: 3rem;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #636e72;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+.toggle-password-btn:hover {
+    color: #00b894;
+    font-weight: 600;
+}
+
+/* Error Message */
+.error-message {
+    background: #ff7675;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-content {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .login-image-section {
+        height: 200px;
+    }
+
+    .login-links {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
