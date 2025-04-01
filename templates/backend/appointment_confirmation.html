@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .header { color: #2c3e50; border-bottom: 2px solid #3498db; }
+        .details { margin: 20px 0; padding: 15px; background-color: #f8f9fa; }
+        .footer { margin-top: 20px; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Appointment Confirmation</h2>
+    </div>
+    
+    <p>Hello {{ user.full_name }},</p>
+    
+    <div class="details">
+        <p>Your appointment for <strong>{{ pet_name }}</strong> has been successfully booked!</p>
+        
+        <h3>Appointment Details:</h3>
+        <ul>
+            <li>Date: {{ date }}</li>
+            <li>Time: {{ time }}</li>
+            <li>Checkup Type: {{ checkup_type }}</li>
+        </ul>
+    </div>
+
+    <div class="important-notes">
+        <h4>Please Note:</h4>
+        <ul>
+            <li>Arrive 10 minutes before your scheduled time</li>
+            <li>Bring any previous medical records</li>
+            <li>Carry your pet's vaccination history</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for choosing Vet For Your Pet!</p>
+        <p>In case of any queries, contact us at: vetforyourpet123@gmail.com</p>
+    </div>
+</body>
+</html>

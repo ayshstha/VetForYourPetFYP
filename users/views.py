@@ -233,6 +233,16 @@ class ToggleFeaturedFeedback(APIView):
 
     
 #
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from .models import AdoptionRequest
+from .serializers import AdoptionRequestSerializer
+from rest_framework.exceptions import ValidationError
+
 class AdoptionRequestViewSet(viewsets.ModelViewSet):
     queryset = AdoptionRequest.objects.all()
     serializer_class = AdoptionRequestSerializer
@@ -243,7 +253,7 @@ class AdoptionRequestViewSet(viewsets.ModelViewSet):
         
         # Check for existing pending/approved requests
         if AdoptionRequest.objects.filter(dog=dog, status__in=['pending', 'approved']).exists():
-            raise serializers.ValidationError("This dog already has an active request")
+            raise ValidationError("This dog already has an active request")
         
         serializer.save(user=self.request.user)
 
@@ -256,7 +266,7 @@ class AdoptionRequestViewSet(viewsets.ModelViewSet):
                 {"error": "Invalid status. Use 'approved' or 'rejected'."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
+
         # Handle approval
         if new_status == 'approved':
             # Mark dog as booked and reject others
@@ -277,11 +287,49 @@ class AdoptionRequestViewSet(viewsets.ModelViewSet):
                 instance.dog.is_booked = False
                 instance.dog.save()
         
+        # Send email notification
+        self.send_status_email(instance, new_status)
+        
         instance.status = new_status
         instance.save()
         
         return Response(self.get_serializer(instance).data)
 
+    def send_status_email(self, instance, status):
+        context = {
+            'user': instance.user,
+            'dog_name': instance.dog.name,
+            'pickup_date': instance.pickup_date.strftime("%B %d, %Y"),
+            'organization_name': 'Vet For Your Pet'
+        }
+
+        template_map = {
+            'approved': 'backend/adoption_approved.html',
+            'rejected': 'backend/adoption_rejected.html'
+        }
+
+        subject_map = {
+            'approved': f"Adoption Approved for {instance.dog.name}!",
+            'rejected': f"Adoption Decision for {instance.dog.name}"
+        }
+
+        try:
+            html_message = render_to_string(template_map[status], context)
+            plain_message = strip_tags(html_message)
+
+            msg = EmailMultiAlternatives(
+                subject=subject_map[status],
+                body=plain_message,
+                from_email=settings.EMAIL_HOST_USER,
+                to=[instance.user.email],
+                reply_to=[settings.DEFAULT_FROM_EMAIL]
+            )
+            msg.attach_alternative(html_message, "text/html")
+            msg.send()
+            print(f"Successfully sent {status} email to {instance.user.email}")
+        except Exception as e:
+            print(f"Error sending {status} email to {instance.user.email}: {str(e)}")
+          
     def get_queryset(self):
         if self.request.user.is_superuser:
             # Return ALL requests for admins
@@ -327,8 +375,35 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     permission_classes = [IsAuthenticated]
     def perform_create(self, serializer):
-        # The serializer will handle the user assignment
-        serializer.save()
+        # Save the appointment and get the instance
+        appointment = serializer.save(user=self.request.user)
+        
+        # Prepare email context
+        context = {
+            'user': appointment.user,
+            'pet_name': appointment.pet_name,
+            'date': appointment.date.strftime("%B %d, %Y"),
+            'time': appointment.time.strftime("%I:%M %p"),
+            'checkup_type': appointment.checkup_type,
+        }
+
+        # Render email templates
+        html_message = render_to_string('backend/appointment_confirmation.html', context)
+        plain_message = strip_tags(html_message)
+
+        # Create and send email
+        try:
+            msg = EmailMultiAlternatives(
+                subject=f"Appointment Confirmed for {appointment.pet_name}",
+                body=plain_message,
+                from_email=settings.EMAIL_HOST_USER,
+                to=[appointment.user.email]
+            )
+            msg.attach_alternative(html_message, "text/html")
+            msg.send()
+        except Exception as e:
+            print(f"Error sending confirmation email: {e}")
+  
     def get_queryset(self):
         user = self.request.user
         date = self.request.query_params.get('date')

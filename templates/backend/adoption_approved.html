@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adoption Approved</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+      }
+      .header {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+      }
+      .details {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+      }
+      .footer {
+        margin-top: 20px;
+        color: #7f8c8d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Adoption Request Approved! 🎉</h2>
+    </div>
+
+    <p>Dear {{ user.full_name }},</p>
+
+    <div class="details">
+      <p>
+        We're excited to inform you that your adoption request for
+        <strong>{{ dog_name }}</strong> has been approved!
+      </p>
+
+      <h3>Next Steps:</h3>
+      <ul>
+        <li>Please arrive at the requested date</li>
+        <li>Please bring a valid government-issued ID</li>
+        <li>Carry a copy of this approval email</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <p>Thank you for giving {{ dog_name }} a loving home!</p>
+    </div>
+  </body>
+</html>

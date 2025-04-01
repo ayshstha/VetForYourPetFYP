@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adoption Decision</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .header { color: #2c3e50; border-bottom: 2px solid #e74c3c; }
+        .details { margin: 20px 0; padding: 15px; background-color: #f8f9fa; }
+        .footer { margin-top: 20px; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Adoption Request Update</h2>
+    </div>
+    
+    <p>Dear {{ user.full_name }},</p>
+    
+    <div class="details">
+        <p>We regret to inform you that your adoption request for <strong>{{ dog_name }}</strong> has not been approved at this time.</p>
+        
+        <h3>Possible Reasons:</h3>
+        <ul>
+            <li>InValid application information</li>
+            <li>Current living situation not suitable</li>
+            <li>Not suitable reasoning to adopt</li>
+        </ul>
+        
+        <p>We encourage you to apply for other available dogs in our shelter.</p>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for your understanding,</p>
+        <p>{{ organization_name }} Team</p>
+    </div>
+</body>
+</html>
