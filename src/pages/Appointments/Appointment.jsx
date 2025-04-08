@@ -15,6 +15,7 @@ import {
   Heart,
   CheckCircle,
   Activity,
+ 
 } from "lucide-react";
 import "./appointment.css";
 
@@ -97,12 +98,6 @@ const Appointment = () => {
       title: "General Checkup",
       price: "₹500",
       duration: "30 mins",
-    },
-    {
-      icon: <Pill className="service-icon" />,
-      title: "Vaccination",
-      price: "₹500",
-      duration: "20 mins",
     },
     {
       icon: <Activity className="service-icon" />,
@@ -360,7 +355,7 @@ const Appointment = () => {
 
       {showModal && (
         <div className="modal-overlay">
-          <div className="modal-content">
+          <div className="modal-contentt">
             <div className="modal-header">
               <h2>Book Your Appointment</h2>
               <button className="close-modal" onClick={closeModal}>

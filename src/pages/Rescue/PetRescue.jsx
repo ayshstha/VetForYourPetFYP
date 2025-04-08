@@ -270,7 +270,7 @@ const PetRescue = () => {
 
       {showModal && (
         <div className="modal-overlay animate-fade-in">
-          <div className="modal-content">
+          <div className="modal-contents">
             <button className="close-btn" onClick={handleCloseModal}>
               <X />
             </button>

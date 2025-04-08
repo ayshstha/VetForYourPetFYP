@@ -75,23 +75,16 @@ const Blog = () => {
                   Bhaktapur, Dr. Joshi has pioneered innovative approaches to
                   animal care, including a groundbreaking method for vaccinating
                   hard-to-catch stray dogs using specially designed blow darts.
-                </p>
-                <p>
                   Despite resource constraints and minimal government funding,
                   Dr. Joshi's dedication has sparked a cultural transformation
-                  in Nepal's approach to street dog care.
-                </p>
-                <p>
-                  Our team consists of passionate veterinarians, animal welfare
-                  specialists, and volunteers who work tirelessly to improve the
-                  lives of street animals. We believe in the power of community
-                  engagement and education to create lasting change.
-                </p>
-                <p>
-                  Through our efforts, we've not only rescued and treated
-                  thousands of animals but also raised awareness about
-                  responsible pet ownership and the importance of animal welfare
-                  in society.
+                  in Nepal's approach to street dog care. Our team consists of
+                  passionate veterinarians, animal welfare specialists, and
+                  volunteers who work tirelessly to improve the lives of street
+                  animals. We believe in the power of community engagement and
+                  education to create lasting change. Through our efforts, we've
+                  not only rescued and treated thousands of animals but also
+                  raised awareness about responsible pet ownership and the
+                  importance of animal welfare in society.
                 </p>
               </div>
             </div>
@@ -125,7 +118,7 @@ const Blog = () => {
             </div>
           </div>
         </section>
-        
+
         <section className="services" id="services">
           <h2 className="section-title">Our Services</h2>
           <div className="services-grid">
@@ -133,8 +126,7 @@ const Blog = () => {
               {
                 icon: Calendar,
                 title: "Checkup Appointments",
-                image:
-                  "https://images.unsplash.com/photo-1576201836106-db1758fd1c97",
+                image: "checkup_appointment.jpeg",
                 items: [
                   "Flexible scheduling for clinic or home visits",
                   "Comprehensive health checkups",
@@ -147,7 +139,7 @@ const Blog = () => {
                 icon: Heart,
                 title: "Rescue Services",
                 image:
-                  "https://images.unsplash.com/photo-1450778869180-41d0601e046e",
+                  "rescue_services.jpeg",
                 items: [
                   "Quick response to rescue requests",
                   "Photo-based identification system",
@@ -160,7 +152,7 @@ const Blog = () => {
                 icon: ClipboardCheck,
                 title: "Adoption Program",
                 image:
-                  "https://images.unsplash.com/photo-1601758228041-f3b2795255f1",
+                  "adoption_program.jpeg",
                 items: [
                   "Detailed dog profiles",
                   "Adoption criteria verification",
@@ -197,7 +189,7 @@ const Blog = () => {
                 icon: Bath,
                 title: "Daily Care Essentials",
                 image:
-                  "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7",
+                  "daily_care.jpeg",
                 items: [
                   "Regular grooming and bathing",
                   "Dental hygiene maintenance",
@@ -210,7 +202,7 @@ const Blog = () => {
                 icon: Utensils,
                 title: "Nutrition Guidelines",
                 image:
-                  "https://images.unsplash.com/photo-1585846888147-3fe14c130048",
+                  "nutrition.jpeg",
                 items: [
                   "Age-appropriate food selection",
                   "Proper portion control",
@@ -224,7 +216,7 @@ const Blog = () => {
                 icon: FirstAid,
                 title: "Health Monitoring",
                 image:
-                  "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def",
+                  "helath_monitor.jpeg",
                 items: [
                   "Regular veterinary check-ups",
                   "Vaccination schedule",
@@ -306,5 +298,26 @@ const Blog = () => {
     </div>
   );
 };
+document.addEventListener("DOMContentLoaded", function () {
+  const scrollTopButton = document.createElement("div");
+  scrollTopButton.className = "scroll-top";
+  scrollTopButton.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>';
+  document.body.appendChild(scrollTopButton);
 
+  scrollTopButton.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > 300) {
+      scrollTopButton.classList.add("visible");
+    } else {
+      scrollTopButton.classList.remove("visible");
+    }
+  });
+});
 export default Blog;

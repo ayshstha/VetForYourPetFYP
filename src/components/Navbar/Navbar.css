@@ -1,16 +1,21 @@
+/* Navbar Styling */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
-  background: linear-gradient(to right, #00b894, #009975);
-  /* Attractive gradient background */
+  background: linear-gradient(to right, #6e8efb, #a777e3);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 2rem;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .navbar a {
@@ -20,7 +25,7 @@
   font-weight: 500;
   padding: 0.5rem 0.8rem;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .navbar a::after {
@@ -35,11 +40,18 @@
 }
 
 .navbar a:hover {
-  color: #ffeaa7;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 .navbar a:hover::after {
   width: 100%;
+}
+
+/* Logo styling */
+.logo {
+  display: flex;
+  align-items: center;
 }
 
 .navbar .logo img {
@@ -53,33 +65,79 @@
   transform: scale(1.1);
 }
 
+/* Navigation links */
 .nav-links {
   display: flex;
   gap: 2rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.logout-btn{
-  background: linear-gradient(to right, #ffffff, #dff9fb);
-  color: #00b894;
+.nav-links li {
+  margin: 0 1rem;
+  position: relative;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 0.5rem 0.8rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Hover effect with underline animation */
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+/* Logout button styling */
+.logout-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
   padding: 0.6rem 1.4rem;
   border-radius: 25px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logout-btn:hover {
-  background: #00b894;
-  color: white;
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+/* Mobile menu button */
 .menu-btn {
   display: none;
   font-size: 1.8rem;
@@ -87,16 +145,16 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .menu-btn:hover {
   transform: rotate(90deg);
-  color: #ffeaa7;
+  color: #ffffff;
 }
 
-/* Responsive Design for Mobile */
-@media (max-width: 768px) {
+/* Mobile responsive styles */
+@media (max-width: 1050px) {
   .menu-btn {
     display: block;
   }
@@ -108,16 +166,46 @@
     left: 0;
     right: 0;
     flex-direction: column;
-    background: #00b894;
+    background: linear-gradient(to bottom, #6e8efb, #a777e3);
     padding: 1rem;
     text-align: center;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    gap: 1rem;
   }
 
   .nav-links.active {
     display: flex;
-    animation: slideDown 0.3s ease-in-out;
+    animation: slideDown 0.4s ease-in-out;
+  }
+
+  .nav-links li {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+
+  .nav-links.active li:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .nav-links.active li:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .nav-links.active li:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .nav-links.active li:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .nav-links.active li:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .nav-links.active li:nth-child(6) {
+    animation-delay: 0.6s;
   }
 }
 
@@ -131,4 +219,42 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Additional animations */
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Pulse animation for active links */
+.nav-links li a.active {
+  color: #ffffff;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-links li a.active::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  animation: pulse 2s infinite;
+}
+
+/* Add a nice transition when the page loads */
+.navbar {
+  animation: fadeIn 0.6s ease-out forwards;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "../../components/AxiosInstance";
 import "./UserProfile.css";
-
+import { MapPin, ChevronLeft, ChevronRight,X } from "lucide-react";
 // Define all components BEFORE using them
 const UserProfileDetails = ({ user, getProfilePicture }) => (
   <div className="profile-info">
@@ -718,6 +718,8 @@ const RescueHistory = ({ userId }) => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchRescueHistory = async () => {
@@ -738,68 +740,161 @@ const RescueHistory = ({ userId }) => {
     fetchRescueHistory();
   }, [userId]);
 
+  const handleImageClick = (images) => {
+    setSelectedImages(images);
+    setCurrentImageIndex(0);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImages([]);
+    setCurrentImageIndex(0);
+  };
+
+  const handlePrev = () => {
+    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : selectedImages.length - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentImageIndex((prev) => (prev < selectedImages.length - 1 ? prev + 1 : 0));
+  };
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (selectedImages.length > 0) {
+        if (e.key === 'ArrowRight') {
+          handleNext();
+        } else if (e.key === 'ArrowLeft') {
+          handlePrev();
+        } else if (e.key === 'Escape') {
+          handleCloseModal();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImages, currentImageIndex]);
+
   if (loading) return <div className="loading">Loading rescue history...</div>;
   if (error) return <div className="error">{error}</div>;
 
-  return (
-    <div className="section-container">
-      <h2>Rescue History</h2>
-      {requests.length === 0 ? (
-        <p>No rescue requests found.</p>
-      ) : (
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Images</th>
-                <th>Location</th>
-                <th>Description</th>
-                <th>Report Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requests.map((request) => (
-                <tr key={request.id}>
-                  <td>
-                    <div className="image-gallery">
-                      {request.images.map((image, index) => (
-                        <img
-                          key={index}
-                          src={image.image}
-                          alt={`Rescue ${index + 1}`}
-                          width="50"
-                          height="50"
-                          style={{ marginRight: "5px", borderRadius: "4px" }}
-                        />
-                      ))}
-                    </div>
-                  </td>
-                  <td>
-                    <a
-                      href={`https://maps.google.com/?q=${request.latitude},${request.longitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View on Map
-                    </a>
-                  </td>
-                  <td>{request.description}</td>
-                  <td>{new Date(request.created_at).toLocaleString()}</td>
-                  <td>
-                    <span className={`status-badge ${request.status}`}>
-                      {request.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </div>
-  );
+   return (
+     <div className="section-container">
+       <h2>Rescue History</h2>
+       {requests.length === 0 ? (
+         <p>No rescue requests found.</p>
+       ) : (
+         <div className="table-container">
+           <table>
+             <thead>
+               <tr>
+                 <th>Images</th>
+                 <th>Location</th>
+                 <th>Description</th>
+                 <th>Report Time</th>
+                 <th>Status</th>
+               </tr>
+             </thead>
+             <tbody>
+               {requests.map((request) => (
+                 <tr key={request.id}>
+                   <td>
+                     <div
+                       className="image-gallery-preview"
+                       onClick={() => handleImageClick(request.images)}
+                     >
+                       {request.images.length > 0 && (
+                         <>
+                           <img
+                             src={request.images[0].image}
+                             alt="Rescue preview"
+                             className="main-preview-image"
+                           />
+                           {request.images.length > 1 && (
+                             <div className="image-counter">
+                               +{request.images.length - 1}
+                             </div>
+                           )}
+                         </>
+                       )}
+                     </div>
+                   </td>
+                   <td>
+                     <a
+                       href={`https://maps.google.com/?q=${request.latitude},${request.longitude}`}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="map-icon-link"
+                       title="View on Google Maps"
+                     >
+                       <MapPin className="map-icon" />
+                     </a>
+                   </td>
+                   <td>{request.description}</td>
+                   <td>{new Date(request.created_at).toLocaleString()}</td>
+                   <td>
+                     <span className={`status-badge ${request.status}`}>
+                       {request.status}
+                     </span>
+                   </td>
+                 </tr>
+               ))}
+             </tbody>
+           </table>
+         </div>
+       )}
+
+       {/* Image Modal */}
+       {selectedImages.length > 0 && (
+         <div className="image-modal">
+           <div className="modal-content">
+             <button className="close-button" onClick={handleCloseModal}>
+               <X size={24} />
+             </button>
+
+             <div className="slider-container">
+               {selectedImages.length > 1 && (
+                 <button className="nav-button prev" onClick={handlePrev}>
+                   <ChevronLeft size={32} />
+                 </button>
+               )}
+
+               <div className="modal-image-container">
+                 <img
+                   src={selectedImages[currentImageIndex].image}
+                   alt={`Rescue image ${currentImageIndex + 1}`}
+                   className="modal-image"
+                 />
+               </div>
+
+               {selectedImages.length > 1 && (
+                 <button className="nav-button next" onClick={handleNext}>
+                   <ChevronRight size={32} />
+                 </button>
+               )}
+             </div>
+
+             {selectedImages.length > 1 && (
+               <div className="image-indicators">
+                 {selectedImages.map((_, index) => (
+                   <span
+                     key={index}
+                     className={`indicator ${
+                       index === currentImageIndex ? "active" : ""
+                     }`}
+                     onClick={() => setCurrentImageIndex(index)}
+                   />
+                 ))}
+               </div>
+             )}
+           </div>
+         </div>
+       )}
+     </div>
+   );
 };
+
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState("profile");

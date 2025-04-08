@@ -273,10 +273,10 @@ const Adoption = () => {
             No dogs currently available for adoption
           </div>
         ) : (
-          <div className="dogs-grid">
+          <div className="dogs-gridd">
             {availableDogs.map((dog) => (
-              <div key={dog.id} className="dog-card">
-                <div className="dog-image">
+              <div key={dog.id} className="dog-cardd">
+                <div className="dog-imagee">
                   <img
                     src={dog.image}
                     alt={dog.name}
@@ -318,5 +318,26 @@ const Adoption = () => {
     </div>
   );
 };
+document.addEventListener("DOMContentLoaded", function () {
+  const scrollTopButton = document.createElement("div");
+  scrollTopButton.className = "scroll-top";
+  scrollTopButton.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>';
+  document.body.appendChild(scrollTopButton);
 
+  scrollTopButton.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > 300) {
+      scrollTopButton.classList.add("visible");
+    } else {
+      scrollTopButton.classList.remove("visible");
+    }
+  });
+});
 export default Adoption;

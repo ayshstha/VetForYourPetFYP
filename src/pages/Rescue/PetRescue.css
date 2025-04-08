@@ -377,13 +377,13 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-.modal-content {
+.modal-contents {
   background: white;
   padding: 2rem;
   border-radius: 20px;
-  max-width: 600px;
+  max-width: 720px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 100vh;
   overflow-y: auto;
   position: relative;
   animation: slideUp 0.5s ease-out;

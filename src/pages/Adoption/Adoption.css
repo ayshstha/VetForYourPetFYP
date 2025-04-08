@@ -11,7 +11,7 @@
     margin-bottom: 3rem;
 }
 
-.dogs-grid {
+.dogs-gridd {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
@@ -20,7 +20,7 @@
 }
 
 /* Dog Card styles */
-.dog-card {
+.dog-cardd {
     background: white;
     border-radius: 10px;
     overflow: hidden;
@@ -29,11 +29,11 @@
     padding-bottom: 1.5rem;
 }
 
-.dog-card:hover {
+.dog-cardd:hover {
     transform: translateY(-5px);
 }
 
-.dog-image {
+.dog-imagee {
     height: 250px;
     overflow: hidden;
 }
