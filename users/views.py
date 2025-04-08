@@ -1,5 +1,6 @@
+import requests
 from django.shortcuts import render
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework import status
 from django.contrib.auth import update_session_auth_hash
@@ -465,3 +466,53 @@ class UpdateAppointmentStatus(APIView):
             "date": appointment.date,
             "time": appointment.time
         })
+
+class KhaltiInitiateView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        data = request.data
+        amount = data.get("amount")
+        purchase_order_id = data.get("purchase_order_id")
+        purchase_order_name = data.get("purchase_order_name")
+        return_url = data.get("return_url")  # Get return_url from frontend
+
+        if not all([amount, purchase_order_id, purchase_order_name, return_url]):
+            return Response(
+                {"error": "Missing required fields"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        headers = {
+            "Authorization": "Key d69a39fcfed94ef59506af0cb7021183"  # test key
+        }
+
+        payload = {
+            "return_url": return_url,  # Use frontend-provided URL
+            "website_url": return_url,
+            "amount": int(amount),
+            "purchase_order_id": purchase_order_id,
+            "purchase_order_name": purchase_order_name,
+            "customer_info": {
+                "name": data.get("customer_name", "Customer"),
+                "email": data.get("customer_email", "customer@example.com"),
+                "phone": data.get("customer_phone", "9800000000")
+            }
+        }
+
+        try:
+            response = requests.post(
+                "https://dev.khalti.com/api/v2/epayment/initiate/",
+                json=payload,
+                headers=headers,
+                timeout=10  # Add timeout
+            )
+            response.raise_for_status()  # Raises exception for 4XX/5XX responses
+            return Response(response.json())
+            
+        except requests.exceptions.RequestException as e:
+            print(f"Khalti API Error: {str(e)}")
+            return Response(
+                {"error": "Failed to initiate payment with Khalti"},
+                status=status.HTTP_400_BAD_REQUEST
+            )

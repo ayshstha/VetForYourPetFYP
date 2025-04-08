@@ -17,7 +17,8 @@ from .views import (
     RescueRequestViewSet,
     UpdateRescueRequestStatus,  # Added comma here
     AppointmentViewSet,
-    UpdateAppointmentStatus  # Added this import
+    UpdateAppointmentStatus,  # Added this import
+    KhaltiInitiateView
 )
 
 # Define the router and register the viewsets
@@ -42,7 +43,7 @@ urlpatterns = [
     path('feedback/toggle-featured/<int:feedback_id>/', ToggleFeaturedFeedback.as_view(), name='toggle-featured-feedback'),
     path('rescue-requests/<int:request_id>/update-status/', UpdateRescueRequestStatus.as_view(), name='update-rescue-request-status'),
     path('appointments/<int:appointment_id>/update-status/', UpdateAppointmentStatus.as_view(), name='update-appointment-status'),
-    
+    path("khalti-verify/", KhaltiInitiateView.as_view(), name="khalti_verify"),
 ]
 
 if settings.DEBUG:
