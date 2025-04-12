@@ -77,8 +77,6 @@ class Feedback(models.Model):
     def __str__(self):
         return f"Feedback from {self.user.email}"
 
-# models.py
-# models.py
 class AdoptionRequest(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     dog = models.ForeignKey(Adoption, on_delete=models.CASCADE)
@@ -175,3 +173,13 @@ class Appointment(models.Model):
                 condition=models.Q(status__in=['pending', 'confirmed'])
             )
         ]
+
+# models.py
+class Donation(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    donation_date = models.DateTimeField(auto_now_add=True)
+    transaction_id = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.amount}"

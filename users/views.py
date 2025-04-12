@@ -468,14 +468,25 @@ class UpdateAppointmentStatus(APIView):
         })
 
 class KhaltiInitiateView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        user = request.user  # Get logged-in user
         data = request.data
+        
+        # Get user details from authenticated user
+        customer_name = user.full_name
+        customer_email = user.email
+        customer_phone = user.phone_number
+        donation_amount = data.get("amount")
+        
+        donation_amount_paisa = int(data.get("amount"))
+        donation_amount_rs = donation_amount_paisa / 100
+        # The rest of the code remains the same
         amount = data.get("amount")
         purchase_order_id = data.get("purchase_order_id")
         purchase_order_name = data.get("purchase_order_name")
-        return_url = data.get("return_url")  # Get return_url from frontend
+        return_url = data.get("return_url")
 
         if not all([amount, purchase_order_id, purchase_order_name, return_url]):
             return Response(
@@ -488,15 +499,15 @@ class KhaltiInitiateView(APIView):
         }
 
         payload = {
-            "return_url": return_url,  # Use frontend-provided URL
+            "return_url": return_url,
             "website_url": return_url,
             "amount": int(amount),
             "purchase_order_id": purchase_order_id,
             "purchase_order_name": purchase_order_name,
             "customer_info": {
-                "name": data.get("customer_name", "Customer"),
-                "email": data.get("customer_email", "customer@example.com"),
-                "phone": data.get("customer_phone", "9800000000")
+                "name": customer_name,
+                "email": customer_email,
+                "phone": customer_phone  # Now using actual user data
             }
         }
 
@@ -505,10 +516,20 @@ class KhaltiInitiateView(APIView):
                 "https://dev.khalti.com/api/v2/epayment/initiate/",
                 json=payload,
                 headers=headers,
-                timeout=10  # Add timeout
+                timeout=10
             )
-            response.raise_for_status()  # Raises exception for 4XX/5XX responses
+            response.raise_for_status()
+            
+            if response.ok:
+                # Record the donation
+              Donation.objects.create(
+                user=user,
+                amount=donation_amount_rs,  # Fixed variable name
+                transaction_id=purchase_order_id
+                )
+
             return Response(response.json())
+        
             
         except requests.exceptions.RequestException as e:
             print(f"Khalti API Error: {str(e)}")
@@ -516,3 +537,14 @@ class KhaltiInitiateView(APIView):
                 {"error": "Failed to initiate payment with Khalti"},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+# views.py
+class DonationViewSet(viewsets.ModelViewSet):
+    queryset = Donation.objects.all().order_by('-donation_date')
+    serializer_class = DonationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Donation.objects.all().order_by('-donation_date')
+        return Donation.objects.filter(user=self.request.user)

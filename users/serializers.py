@@ -176,3 +176,12 @@ def validate(self, data):
             "This time slot is already booked. Please choose another time."
         )
     return data
+
+# serializers.py
+from. models import Donation
+class DonationSerializer(serializers.ModelSerializer):
+    user_details = UserSerializer(source='user', read_only=True)
+    
+    class Meta:
+        model = Donation
+        fields = ['id', 'user', 'user_details', 'amount', 'donation_date']  # Removed transaction_id

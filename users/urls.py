@@ -18,7 +18,8 @@ from .views import (
     UpdateRescueRequestStatus,  # Added comma here
     AppointmentViewSet,
     UpdateAppointmentStatus,  # Added this import
-    KhaltiInitiateView
+    KhaltiInitiateView,
+    DonationViewSet,
 )
 
 # Define the router and register the viewsets
@@ -31,6 +32,8 @@ router.register('feedback', FeedbackViewSet, basename='feedback')
 router.register('adoption-requests', AdoptionRequestViewSet, basename='adoption-requests')
 router.register('rescue-requests', RescueRequestViewSet, basename='rescue-requests')
 router.register('appointments', AppointmentViewSet, basename='appointments')
+# urls.py
+router.register('donations', DonationViewSet, basename='donations')
 
 
 # Define URL patterns
