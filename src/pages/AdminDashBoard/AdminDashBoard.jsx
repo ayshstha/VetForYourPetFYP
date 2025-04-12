@@ -816,12 +816,72 @@ const VetAppointments = ({ appointments }) => {
   );
 };
 
-const Donations = () => (
-  <div className="dashboard-section">
-    <h2>Donations</h2>
-    <p>Donation records will appear here.</p>
-  </div>
-);
+// Donations.jsx
+const Donations = () => {
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        const response = await AxiosInstance.get("/donations/");
+        setDonations(response.data);
+      } catch (error) {
+        setError("Failed to fetch donation records");
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDonations();
+  }, []);
+
+  if (loading) return <div className="loading">Loading donations...</div>;
+  if (error) return <div className="error">{error}</div>;
+
+  return (
+    <div className="dashboard-section">
+      <h2>Donation Records</h2>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Donor</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {donations.map((donation) => (
+              <tr key={donation.id}>
+                <td>
+                  <div className="user-info">
+                    <img
+                      src={
+                        donation.user_details?.profile_picture ||
+                        "/default-avatar.png"
+                      }
+                      alt="Donor"
+                      className="user-avatar"
+                    />
+                    <div>
+                      <p>{donation.user_details?.full_name || "Anonymous"}</p>
+                      <small>{donation.user_details?.email}</small>
+                    </div>
+                  </div>
+                </td>
+                <td>Rs. {donation.amount}</td>
+                <td>{new Date(donation.donation_date).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
 const Feedbacks = () => {
   const [feedbacks, setFeedbacks] = useState([]);
